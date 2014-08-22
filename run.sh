@@ -1,0 +1,1 @@
+java -Xms1024M  -Xmx3G -cp "soot-trunk.jar:soot-infoflow.jar:soot-infoflow-android.jar:slf4j-api-1.7.5.jar:slf4j-simple-1.7.5.jar:axml-2.0.jar" soot.jimple.infoflow.android.TestApps.Test "$1" "/home/mcafee/IDEs/adt-bundle-linux-x86_64-20140702/sdk/platforms" > $2
