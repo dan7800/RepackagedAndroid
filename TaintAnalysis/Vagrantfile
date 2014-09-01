@@ -4,7 +4,7 @@ Vagrant::Config.run do |config|
   # please see the online documentation at vagrantup.com.
 
 
-  config.vm.box = "ubuntu/trusty32"
+  config.vm.box = "puppetlabs/centos-6.5-64-puppet"
 
   Vagrant::Config.run do |config|
       config.vm.customize ["modifyvm", :id, "--memory", 2048]
@@ -21,7 +21,10 @@ Vagrant::Config.run do |config|
   # Share an additional folder to the guest VM. The first argument is
   # an identifier, the second is the path on the guest to mount the
   # folder, and the third is the path on the host to the actual folder.
-  config.vm.share_folder "maven-repo", "/m2", "~/.m2"
+  #config.vm.share_folder "maven-repo", "/.m2", "~/.m2"
+
+  #installs public puppet modules in the VM, as it's pain to do on OSX
+  config.vm.provision "shell", path: "puppet/install_public_modules.sh"
 
   # Enable provisioning with Puppet stand alone.
   config.vm.provision "puppet" do |puppet|
