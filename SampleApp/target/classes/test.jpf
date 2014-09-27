@@ -1,0 +1,3 @@
+target=Custom.MainWrapper
+report.console.property_violation=error,trace,snapshot
++classpath = D:\\workspaces\\RITAndroidResearch\\SampleApp\\target\\classes
