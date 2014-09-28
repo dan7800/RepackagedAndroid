@@ -5,6 +5,9 @@
 bin/
 tmp/
 *.tmp
+SampleApp/target/*
+
+
 *.bak
 *.swp
 *~.nib
@@ -79,3 +82,4 @@ atlassian-ide-plugin.xml
 
 # Crashlytics plugin (for Android Studio and IntelliJ)
 com_crashlytics_export_strings.xml
+/target/

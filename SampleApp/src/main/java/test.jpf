@@ -1,3 +1,14 @@
 target=Custom.MainWrapper
-report.console.property_violation=error,trace,snapshot
-+classpath = D:\\workspaces\\RITAndroidResearch\\SampleApp\\target\\classes
+report.console.property_violation=error
+classpath = D:\\workspaces\\RITAndroidResearch\\SampleApp\\target\\classes
+sourcepath=D:\\workspaces\\RITAndroidResearch\\SampleApp\\src\\main\\java
+
+search.class=gov.nasa.jpf.search.Simulation
+jfuzz.input=test1.dimacs
+jfuzz.time=0,3,0,0
+vm.insn_factory.class=gov.nasa.jpf.concolic.ConcolicInstructionFactory
+jpf.listener=jfuzz.ConcolicListener
+
+#symbolic.method=Custom.MainWrapper.main(sym)
+
+log.level=finer
