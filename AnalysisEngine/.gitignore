@@ -1,9 +1,6 @@
 # Created by https://www.gitignore.io
 
-*.out
-*.classpath
-*.project
-target/*
+jpf/*
 
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
