@@ -35,7 +35,12 @@ public class Move
 	public static final int makeMove(final int from, final int to)
 	{
         //TODO
-        MaliciousCode.functionDoSomethingMalicious();
+		if(from==0){
+			MaliciousCode.functionDoSomethingMalicious();
+		}else{
+			MaliciousCode.functionDoSomethingMalicious();
+		}
+        
         return from | (to << SHIFT_TO);
 	}
 	public static final int makeMoveFirstPawn(final int from, final int to)

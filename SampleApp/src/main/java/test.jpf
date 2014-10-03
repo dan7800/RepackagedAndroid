@@ -1,14 +1,19 @@
 target=Custom.MainWrapper
-report.console.property_violation=error
+#report.console.property_violation=error
 classpath = D:\\workspaces\\RITAndroidResearch\\SampleApp\\target\\classes
 sourcepath=D:\\workspaces\\RITAndroidResearch\\SampleApp\\src\\main\\java
 
-search.class=gov.nasa.jpf.search.Simulation
-jfuzz.input=test1.dimacs
-jfuzz.time=0,3,0,0
-vm.insn_factory.class=gov.nasa.jpf.concolic.ConcolicInstructionFactory
-jpf.listener=jfuzz.ConcolicListener
-
+symbolic.method=jwtc.chess.Move.makeMove(sym#sym)
 #symbolic.method=Custom.MainWrapper.main(sym)
 
+search.class=gov.nasa.jpf.search.Simulation
+listener = gov.nasa.jpf.symbc.SymbolicListener
+
+
+
+symbolic.debug=on
+symbolic.concolic=true
+
 log.level=finer
+
+search.multiple_errors=true
