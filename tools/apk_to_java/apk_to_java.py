@@ -1,35 +1,36 @@
 #apk_to_java.py
 #Use tools to separate multiple apk files into separate java classpath directories
 
-#Args: 
-#$1 - Directory of APK files
-
 import os
 import sys
 from subprocess import call
 
-if (len(sys.argv) != 2):
-	print("Usage: $1 - Directory of APK files")
+if not os.path.isdir('apks/'):
+	print("Please create a directory named 'apks' with desired apk files to convert")
 	sys.exit()
 
-apkDir = sys.argv[1]
+if not os.path.isdir('outputs/'):
+	os.makedirs('outputs')
+if not os.path.isdir('outputs/jars'):
+	os.makedirs('outputs/jars/')
+if not os.path.isdir('outputs/classpaths'):
+	os.makedirs('outputs/classpaths/')
 
 #Take a directory of APK files and convert each APK to a jarfile
 #Jars will be moved to outputs/jars/apkName.jar
 def unpackAPKs():
-	
-	for filename in os.listdir(apkDir):
+	for filename in os.listdir('apks/'):
 		if filename.endswith('.apk'):
 			name = os.path.splitext(filename)[0]
 			name = name.replace(" ", "-")
 
-			os.rename(apkDir + '/' + filename, apkDir + '/' + name + '.apk')
+			os.rename('apks/' + filename, 'apks/' + name + '.apk')
 
 			apkString = "apks/" + filename
 			output = "-o outputs/" + name + ".jar"
 
 			print("Processing APK file " + filename)
-			call(["bash","dex2jar/d2j-dex2jar.sh",apkDir + "/" + filename,"-o", "outputs/jars/" + name + ".jar"])	
+			call(["bash","dex2jar/d2j-dex2jar.sh","apks/" + filename,"-o", "outputs/jars/" + name + ".jar"])	
 
 #Take any jarfiles in the outputs/jars directory and unpack 
 #into their original classpath structure for processing. 

@@ -5,6 +5,7 @@
 *.vagrant/
 
 ##Tool outputs##
+tools/apk_to_java/dex2jar/*
 tools/apk_to_java/apks/*
 tools/apk_to_java/outputs/classpaths/*
 tools/apk_to_java/outputs/jars/*
