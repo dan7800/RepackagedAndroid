@@ -24,3 +24,7 @@ python apk_to_java.py
 ```
 * The resulting JARs and classpath directories will be in the outputs/jars and outputs/claspaths directories, respectively
 
+Dependencies
+=
+
+* Java environment and python 2 or 3 on the local machine
