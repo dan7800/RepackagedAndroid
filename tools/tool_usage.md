@@ -1,21 +1,19 @@
-Tools
-===
+#Tools
 
-Flowdroid Processor
-==
+##Flowdroid Processor
 
 Execute the FlowDroid taint anaysis tool on a batch of multiple apk files.
 The output is then piped into a separate text file per APK, and stripped
 for relevant information and source/sink combinations
 
-Usage
-=  
+### Usage
 
-APK To Java
-==
 
-Usage 
-=
+## APK To Java
+
+
+### Usage
+
 
 * Unpackage the flowdroid sub utility included in the apk to java directory
 ```
@@ -34,12 +32,11 @@ python apk_to_java.py
 ```
 * The resulting JARs and classpath directories will be in the outputs/jars and outputs/claspaths directories, respectively
 
-Dependencies
-=
+### Dependencies
 
 * Java environment and python 2 or 3 on the local machine
 
-Testbed
-==
+### Testbed
+
 * DroidBench - benchmark testing suite of apk files and java source directories
-** Each file has a simple exploit introduced in oreder to test the effectiveness of malware analysis tools 
+** Each file has a simple exploit introduced in oreder to test the effectiveness of malware analysis tools
