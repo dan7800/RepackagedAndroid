@@ -1,7 +1,27 @@
+Week 8
+===
+
+
+Week 7
+===
+To do for next week:
+* Send status email for next weeks meeting on Monday, 10/20
+* Precision, recall, accuracy. Evaluate 10 APKS with and without malware segments. Give exact specification of where malware was injected.
+* Create a brief schedule for the rest of the term
+* Tool to batch process and repackage android apps 
+* Parser for tool output
+
+Done from last week:
+* APK Sample set using DroidBench
+** Found DroidBench when doing concolic analysis using FlowDroid. Provides a test suite of android apps with exposed known malware in order to determine the effectiveness of taint analysis and other types of static analysis tools.
+* Tool to unpackage and batch process APK files
+** Tool is titled apk_to_java and contains a simple python script that uses dex2jar and jar xf commands to break down a set of APK files into classpaths and jarfiles, one of each per APK. 
+* Automated use of flowdroid
+** Still some work left to do in order to parse output of many flowdroid instances, but the ability to feed multiple APK files into FlowDroid is functional. 
+* Documentation and code base cleanup
 
 Week 6
 ===
-
 
 SAC ACM Conference
 Send Patrick information for creation of .java files for APK files (use of dex2jar)
