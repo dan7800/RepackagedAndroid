@@ -1,7 +1,5 @@
 package com.rit.AndroidAnalysisEngine;
 
-import java.io.IOException;
-
 import com.beust.jcommander.JCommander;
 
 /**

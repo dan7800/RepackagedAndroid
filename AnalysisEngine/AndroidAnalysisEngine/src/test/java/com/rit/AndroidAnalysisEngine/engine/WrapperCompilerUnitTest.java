@@ -26,7 +26,7 @@ public class WrapperCompilerUnitTest {
 	}
 	
 	@Test
-	@Ignore("Weirdly OS dependent")
+	//@Ignore("Weirdly OS dependent")
 	public void basicCompile() throws Exception{
 		wrapperCompiler = new WrapperCompiler();
 		wrapperCompiler.doCompile(99);

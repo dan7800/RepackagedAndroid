@@ -1,4 +1,6 @@
-public class Wrapper {
+package spawn;
+
+public class Wrapper{{INDEX}} {
 
 	public static void main(String[] args){
 		System.out.println("Seems to be working!");

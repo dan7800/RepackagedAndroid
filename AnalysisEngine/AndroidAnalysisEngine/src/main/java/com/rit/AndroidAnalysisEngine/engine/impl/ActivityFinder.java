@@ -23,7 +23,6 @@ import org.reflections.util.FilterBuilder;
 
 //used because maven is dumb with subdependencies sometimes
 import com.google.common.base.Predicate;
-
 import javassist.bytecode.ClassFile;
 
 /**
