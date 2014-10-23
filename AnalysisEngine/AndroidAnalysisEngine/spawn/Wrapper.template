@@ -1,0 +1,12 @@
+package spawn;
+
+//import notsandbox.DatLib;
+
+public class Wrapper{{INDEX}} {
+
+	public static void main(String[] args){
+		System.out.println("Seems to be working!");
+        //DatLib.doDat();
+		System.out.println("Actually working!");
+	}
+}

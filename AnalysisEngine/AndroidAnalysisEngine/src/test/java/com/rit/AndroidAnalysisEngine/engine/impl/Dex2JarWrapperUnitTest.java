@@ -1,8 +1,6 @@
 package com.rit.AndroidAnalysisEngine.engine.impl;
 
 import java.io.File;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,7 +25,7 @@ public class Dex2JarWrapperUnitTest {
 	@Before
 	public void setUp(){
 		dex2JarWrapper = new Dex2JarWrapper();
-        //cleanUpJar();
+        cleanUpJar();
 	}
 	
 	@Test //test has issue
