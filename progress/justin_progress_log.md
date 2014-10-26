@@ -1,4 +1,7 @@
 
+Weeks 8 and 9 
+===
+
 No Meeting was held this week. Status update as far as goals that should be accomplished before Monday of week 10
 
 * Preforming some research on APKTool
@@ -7,6 +10,11 @@ No Meeting was held this week. Status update as far as goals that should be acco
    ** Wrote the parser for FlowDroid application output
    ** Built and ran the anadroid static APK analysis tool. I am continuing to write parser for tool output.
    ** Used the Dexter APK analysis tool to infer output from sample set of APK files (http://dexter.dexlabs.org/)
+* Began writing a summary of test results with two apk sample sets and three static analysis tools. 
+
+To complete during week 10: 
+* finish testing both APK sample sets with each static analysis tool
+* Insert known malware segments into 10 popular APKS outlined on the tool analysis document and properly repackage them before feeding into static analysis tools.  
 
 Week 7
 ===
