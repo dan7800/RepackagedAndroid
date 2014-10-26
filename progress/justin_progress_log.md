@@ -1,6 +1,12 @@
-Week 8
-===
 
+No Meeting was held this week. Status update as far as goals that should be accomplished before Monday of week 10
+
+* Preforming some research on APKTool
+   ** Reverse engineering android applications to dalvik bytecode. This may prove useful in our research, but seems slightly out of scope for now. 
+* Additional tool functionality
+   ** Wrote the parser for FlowDroid application output
+   ** Built and ran the anadroid static APK analysis tool. I am continuing to write parser for tool output.
+   ** Used the Dexter APK analysis tool to infer output from sample set of APK files (http://dexter.dexlabs.org/)
 
 Week 7
 ===
