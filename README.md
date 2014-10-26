@@ -1,16 +1,21 @@
-General setup:
+#Concolic Analysis System Proving Android Readiness (CASPAR)
 
-1) Setup the VM
-  a) Install Vagrant
-  b) Go to the root directoroty of the repo (where this file is)
-  c) Run "vagrant up" and wait for the machine to come online
-  d) Run "vagrant ssh" to enter the virtual machine
-2) All included projects will be in "~/Workspace/" in the VM
+## General setup:
 
-Analysis Engine Setup:
+1. Setup the VM
+  1. Install Vagrant
+  2. Go to the root directoroty of the repo (where this file is)
+  3. Run "vagrant up" and wait for the machine to come online
+  4. Run "vagrant ssh" to enter the virtual machine
+2. All included projects will be in "~/Workspace/" in the VM
 
-1) In the VM, navigate to "~/Workspace/AnalysisEngine"
-  a) Set up JPF
-    i) run jpf_clone.sh - this pulls down the repositories
-	ii) run jpf_build.sh - this builds the required jars
-  b) ??? - project setup to be determined
+## Analysis Engine Project Setup:
+
+1. MAKE SURE YOU HAVE A JDK INSTALLED AND ON YOUR PATH
+  1. Requires at least 1.7
+  2. Please make sure your default JRE and default JRE are the same major version
+2. In the VM, navigate to "~/Workspace/AnalysisEngine"
+  1. Set up JPF
+    1. run jpf_clone.sh - this pulls down the repositories
+	2. run jpf_build.sh - this builds the required jars
+  2. In the host OS, import "AnalysisEngine/AndroidAnalysisEngine/" as a maven project in the IDE of your choice

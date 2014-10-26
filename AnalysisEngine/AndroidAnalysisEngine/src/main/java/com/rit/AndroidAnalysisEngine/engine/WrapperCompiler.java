@@ -38,16 +38,31 @@ public class WrapperCompiler {
 			}
 	
 	
-	public void spawnFiles(int index) throws IOException{
+	public void spawnFiles(int index, File targetJar) throws IOException{
 		spawnWrapperFile(index);
-		spawnManifestFile(index);
+		spawnManifestFile(index, targetJar);
 	}
 	
-	public void spawnManifestFile(int index) throws IOException{
+	private String getClassPathString(Path targetJarPath) throws IOException{
+		String classpath = "";
+		File dir = new File("./lib/");
+        File [] files = dir.listFiles(new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".jar");
+            }
+        });
+        for (File file : files) {
+            classpath+="."+file.getPath().toString()+":"; // hacky
+        }
+		return classpath+targetJarPath.toString();
+	}
+	
+	public void spawnManifestFile(int index, File targetJar) throws IOException{
 		File sourceFile = new File("./spawn/manifest.mf.template");
 		
 		String rawSource = readFile(sourceFile, Charset.defaultCharset());
 		String editedSource = rawSource.replace(indexToken, new Integer(index).toString());
+		editedSource = editedSource.replace("{{CLASSPATH}}", getClassPathString(targetJar.toPath()));
 
 		PrintWriter outToFile = new PrintWriter("./spawn/manifest"+index+".mf");
 		outToFile.println(editedSource);
@@ -67,8 +82,8 @@ public class WrapperCompiler {
 		
 	}
 	
-	public File doCompile(int index) throws IOException{
-		spawnFiles(index);
+	public File doCompile(int index, File targetJar) throws IOException{
+		spawnFiles(index, targetJar);
 			
 		//compile
 		
@@ -79,7 +94,6 @@ public class WrapperCompiler {
 			//HERESY WILL BE SUPPRESSED
 			e.printStackTrace();
 		} 
-		
 		
 		//make the damn jar
 		Process jarProc =  Runtime.getRuntime().exec("jar cmf ./spawn/manifest"+index+".mf ./spawn/Wrapper"+index+".jar ./spawn/Wrapper"+index+".class");
@@ -110,10 +124,9 @@ public class WrapperCompiler {
 	
 	private void cleanOutFilesByPattern(String pattern) throws IOException{
 		File dir = new File("./spawn");
-        DirectoryStream<Path> stream = Files.newDirectoryStream(new File("./spawn").toPath(), pattern);
         File [] files = dir.listFiles(new FilenameFilter() {
             public boolean accept(File dir, String name) {
-                return name.endsWith(".xml");
+                return name.endsWith(".class");
             }
         });
         for (File file : files) {

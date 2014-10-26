@@ -98,3 +98,4 @@ local.properties
 
 # TeXlipse plugin
 .texlipse
+/target/

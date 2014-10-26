@@ -27,8 +27,9 @@ public class WrapperCompilerUnitTest {
 	
 	@Test //only checks existence of jar
 	public void basicCompile() throws Exception{
+		File targetJar = new File("../Test.jar");
 		wrapperCompiler = new WrapperCompiler();
-		wrapperCompiler.doCompile(99);
+		wrapperCompiler.doCompile(99, targetJar);
 		File jar = new File(jarPath);
 		if(jar.exists()){
 			//jar.delete();

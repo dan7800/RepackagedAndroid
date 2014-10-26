@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
 Main-Class: spawn.Wrapper{{INDEX}}
 Created-By: AndroidAnalysisEngine
-Class-Path: ../lib/Test.jar
+Class-Path: {{CLASSPATH}}

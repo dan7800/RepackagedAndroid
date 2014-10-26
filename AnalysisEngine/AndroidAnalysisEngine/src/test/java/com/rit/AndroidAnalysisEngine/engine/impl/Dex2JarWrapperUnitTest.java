@@ -30,11 +30,11 @@ public class Dex2JarWrapperUnitTest {
 	
 	@Test //test has issue
     @Ignore("Requires files I didn't want to commit.")
-	public void testDexToJar(){
+	public void testDexToJar() throws Exception{
         File sourceFile = new File(apkPath);
         Assert.assertTrue("Robodemo apk does not exist", sourceFile.exists());
 		dex2JarWrapper.convertApkToJar(sourceFile.toPath(), null);
-
+		Thread.sleep(1000); //because lag
 		File result = new File(apkPath);
 		Assert.assertTrue("Robodemo jar does not exist", result.exists());
 	}
