@@ -1,34 +1,24 @@
 package com.rit.AndroidAnalysisEngine.engine;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
-import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.tools.JavaCompiler;
-import javax.tools.JavaCompiler.CompilationTask;
-import javax.tools.StandardJavaFileManager;
-import javax.tools.StandardLocation;
-import javax.tools.ToolProvider;
+import org.apache.commons.lang.SystemUtils;
 
 @SuppressWarnings("restriction") //compiler dependency
 public class WrapperCompiler {
 	
 	private final String indexToken = "{{INDEX}}";
+	private String classPathDelimiter;
+	
+	public WrapperCompiler(){
+		classPathDelimiter = SystemUtils.IS_OS_WINDOWS ? " ; " : " : ";
+	}
 	
 	private String readFile(File src, Charset encoding) 
 			  throws IOException 
@@ -52,7 +42,7 @@ public class WrapperCompiler {
             }
         });
         for (File file : files) {
-            classpath+="."+file.getPath().toString()+" : "; // hacky
+            classpath+="."+file.getPath().toString()+classPathDelimiter; // hacky
         }
 		return classpath+targetJarPath.toAbsolutePath().toString();
 	}
@@ -110,7 +100,8 @@ public class WrapperCompiler {
 			e.printStackTrace();
 		} 
 		//clean up
-        cleanOutClassFiles();
+		//cleanOutJavaFiles();
+        //cleanOutClassFiles();
         return new File("./spawn/Wrapper"+index+".jar");
         /*WARNING: if you got major.minor versions, I feel bad for you son
         			I got 99 problems, but too many JDKs ain't one 
@@ -125,6 +116,10 @@ public class WrapperCompiler {
 	
 	private void cleanOutClassFiles() throws IOException{
 		cleanOutFilesByPattern("*.class");
+	}
+	
+	private void cleanOutJavaFiles() throws IOException{
+		cleanOutFilesByPattern("*.java");
 	}
 	
 	private void cleanOutFilesByPattern(String pattern) throws IOException{
