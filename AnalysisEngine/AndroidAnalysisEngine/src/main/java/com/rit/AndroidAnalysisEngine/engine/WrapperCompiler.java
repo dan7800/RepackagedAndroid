@@ -52,9 +52,9 @@ public class WrapperCompiler {
             }
         });
         for (File file : files) {
-            classpath+="."+file.getPath().toString()+":"; // hacky
+            classpath+="."+file.getPath().toString()+" : "; // hacky
         }
-		return classpath+targetJarPath.toString();
+		return classpath+targetJarPath.toAbsolutePath().toString();
 	}
 	
 	public void spawnManifestFile(int index, File targetJar) throws IOException{
@@ -87,13 +87,18 @@ public class WrapperCompiler {
 			
 		//compile
 		
-		Process compileProc = Runtime.getRuntime().exec("javac -classpath ./lib/* ./spawn/Wrapper"+index+".java");
+		Process compileProc = Runtime.getRuntime().exec("javac -classpath ./lib/*:"+targetJar.toPath().toString()+" ./spawn/Wrapper"+index+".java");
 		try {
 			compileProc.waitFor(); //what could go wrong? Oh, right, infinite hang . . .
 		} catch (InterruptedException e) {
 			//HERESY WILL BE SUPPRESSED
 			e.printStackTrace();
 		} 
+		
+		File classFile = new File("./spawn/Wrapper"+index+".class");
+		if(!classFile.exists()){
+			return null;
+		}
 		
 		//make the damn jar
 		Process jarProc =  Runtime.getRuntime().exec("jar cmf ./spawn/manifest"+index+".mf ./spawn/Wrapper"+index+".jar ./spawn/Wrapper"+index+".class");
