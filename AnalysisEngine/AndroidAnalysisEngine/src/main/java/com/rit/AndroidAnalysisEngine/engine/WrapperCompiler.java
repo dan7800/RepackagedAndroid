@@ -8,12 +8,19 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.commons.lang.SystemUtils;
 
-@SuppressWarnings("restriction") //compiler dependency
+import com.rit.AndroidAnalysisEngine.engine.impl.ActivityFinder;
+
+import android.app.Activity;
+
 public class WrapperCompiler {
 	
 	private final String indexToken = "{{INDEX}}";
+	private final String importsToken = "{{CLASS_IMPORTS}}";
 	private String classPathDelimiter;
 	
 	public WrapperCompiler(){
@@ -29,7 +36,8 @@ public class WrapperCompiler {
 	
 	
 	public void spawnFiles(int index, File targetJar) throws IOException{
-		spawnWrapperFile(index);
+		ActivityFinder activityFinder = new ActivityFinder();
+		spawnWrapperFile(index, activityFinder.getClassInfo(targetJar, new HashSet<Class<? extends Activity>>()));
 		spawnManifestFile(index, targetJar);
 	}
 	
@@ -42,9 +50,10 @@ public class WrapperCompiler {
             }
         });
         for (File file : files) {
-            classpath+="."+file.getPath().toString()+classPathDelimiter; // hacky
+            classpath+=" "+file.getPath().toString()+"\n"; // hacky
         }
-		return classpath+targetJarPath.toAbsolutePath().toString();
+        String relativePath = new File(".").toPath().relativize(targetJarPath).toString();
+		return relativePath + "\n" + classpath;
 	}
 	
 	public void spawnManifestFile(int index, File targetJar) throws IOException{
@@ -59,12 +68,15 @@ public class WrapperCompiler {
 		outToFile.close();
 	}
 	
-	public void spawnWrapperFile(int index) throws IOException{
+	public void spawnWrapperFile(int index, Set<Class<? extends Activity>> activityClasses) throws IOException{
 		File sourceFile = new File("./spawn/Wrapper.template");
+		SourceWriter manipulator = new SourceWriter(activityClasses);
 		
 		String rawSource = readFile(sourceFile, Charset.defaultCharset());
 		String editedSource = rawSource.replace(indexToken, new Integer(index).toString());
-
+		editedSource = editedSource.replace(importsToken, manipulator.getImportStrings());
+		
+		
 		//TODO crazy stuff here
 		PrintWriter outToFile = new PrintWriter("./spawn/Wrapper"+index+".java");
 		outToFile.println(editedSource);

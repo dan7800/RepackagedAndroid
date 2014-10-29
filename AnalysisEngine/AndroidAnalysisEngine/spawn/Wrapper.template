@@ -1,12 +1,12 @@
 package spawn;
 
-//import notsandbox.DatLib;
+{{CLASS_IMPORTS}}
 
 public class Wrapper{{INDEX}} {
 
 	public static void main(String[] args){
-		System.out.println("Seems to be working!");
-        //DatLib.doDat();
-		System.out.println("Actually working!");
+		System.out.println("Starting function calls");
+        //{{FUNCTION_CALLS}}
+        System.out.println("Finished with function calls");
 	}
 }

@@ -3,6 +3,7 @@ package com.rit.AndroidAnalysisEngine.engine.impl;
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -28,7 +29,7 @@ public class ActivityFinderUnitTest {
     }
 
     @Test
-    @Ignore("Requires files I didn't want to commit.")
+    //@Ignore("Requires files I didn't want to commit.")
     public void dynamicallyLoadClass() throws Exception{
 
         URL[] urlToHit = new URL[1];
@@ -53,9 +54,9 @@ public class ActivityFinderUnitTest {
     }
 
     @Test
-    @Ignore("Requires files I didn't want to commit.")
+    //@Ignore("Requires files I didn't want to commit.")
     public void getActivityImplementingClasses() throws Exception{
-        Set<Class<? extends Activity>> acts = new TreeSet<Class<? extends Activity>>();
+        Set<Class<? extends Activity>> acts = new HashSet<Class<? extends Activity>>();
         Set<Class<? extends Activity>> resultSet = activityFinder.getClassInfo(new File(jarPath), acts);
         
         /*System.out.println("MY RESULTS:");
