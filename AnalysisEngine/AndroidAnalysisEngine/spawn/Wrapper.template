@@ -6,7 +6,7 @@ public class Wrapper{{INDEX}} {
 
 	public static void main(String[] args){
 		System.out.println("Starting function calls");
-        //{{FUNCTION_CALLS}}
+{{FUNCTION_CALLS}}
         System.out.println("Finished with function calls");
 	}
 }

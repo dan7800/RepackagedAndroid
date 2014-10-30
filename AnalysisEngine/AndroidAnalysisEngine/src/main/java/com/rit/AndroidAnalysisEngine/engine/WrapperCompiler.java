@@ -21,6 +21,7 @@ public class WrapperCompiler {
 	
 	private final String indexToken = "{{INDEX}}";
 	private final String importsToken = "{{CLASS_IMPORTS}}";
+	private final String functionsToken = "{{FUNCTION_CALLS}}";
 	private String classPathDelimiter;
 	
 	public WrapperCompiler(){
@@ -50,7 +51,8 @@ public class WrapperCompiler {
             }
         });
         for (File file : files) {
-            classpath+=" "+file.getPath().toString()+"\n"; // hacky
+            //classpath+= " ."+file.toPath().toString()+"\n";
+        	classpath+= " "+new File("./spawn/").toPath().relativize(file.toPath()).toString()+"\n";
         }
         String relativePath = new File(".").toPath().relativize(targetJarPath).toString();
 		return relativePath + "\n" + classpath;
@@ -75,7 +77,7 @@ public class WrapperCompiler {
 		String rawSource = readFile(sourceFile, Charset.defaultCharset());
 		String editedSource = rawSource.replace(indexToken, new Integer(index).toString());
 		editedSource = editedSource.replace(importsToken, manipulator.getImportStrings());
-		
+		editedSource = editedSource.replace(functionsToken, manipulator.getFunctionCalls());
 		
 		//TODO crazy stuff here
 		PrintWriter outToFile = new PrintWriter("./spawn/Wrapper"+index+".java");
