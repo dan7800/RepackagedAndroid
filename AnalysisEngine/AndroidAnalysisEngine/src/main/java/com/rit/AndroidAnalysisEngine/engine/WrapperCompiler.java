@@ -51,11 +51,10 @@ public class WrapperCompiler {
             }
         });
         for (File file : files) {
-            //classpath+= " ."+file.toPath().toString()+"\n";
-        	classpath+= " "+new File("./spawn/").toPath().relativize(file.toPath()).toString()+"\n";
+        	classpath+= "  "+new File("./spawn/").toPath().relativize(file.toPath()).toString()+"\n";
         }
         String relativePath = new File(".").toPath().relativize(targetJarPath).toString();
-		return relativePath + "\n" + classpath;
+		return relativePath + classpath;
 	}
 	
 	public void spawnManifestFile(int index, File targetJar) throws IOException{
