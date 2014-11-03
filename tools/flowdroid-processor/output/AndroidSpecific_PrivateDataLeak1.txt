@@ -1,0 +1,60 @@
+Using '/Users/justinpeterson/Android/android-sdk-macosx/platforms/android-17/android.jar' as android.jar
+Warning: java.lang.ref.Finalizer is a phantom class!
+[Call Graph] For information on where the call graph may be incomplete, use the verbose option to the cg phase.
+[Spark] Pointer Assignment Graph in 0.1 seconds.
+[Spark] Type masks in 0.0 seconds.
+[Spark] Pointer Graph simplified in 0.0 seconds.
+[Spark] Propagation in 0.1 seconds.
+[Spark] Solution found in 0.1 seconds.
+Callback analysis done.
+Warning: RelativeLayout is a phantom class!
+Warning: de.ecspride.RelativeLayout is a phantom class!
+Warning: android.view.RelativeLayout is a phantom class!
+Warning: EditText is a phantom class!
+Warning: de.ecspride.EditText is a phantom class!
+Warning: android.view.EditText is a phantom class!
+Warning: requestFocus is a phantom class!
+Warning: de.ecspride.requestFocus is a phantom class!
+Warning: android.view.requestFocus is a phantom class!
+Warning: android.widget.requestFocus is a phantom class!
+Warning: android.webkit.requestFocus is a phantom class!
+Warning: Button is a phantom class!
+Warning: de.ecspride.Button is a phantom class!
+Warning: android.view.Button is a phantom class!
+Found 3 layout controls in file res/layout/activity_private_date_leakage.xml
+Found 3 layout controls
+Using '/Users/justinpeterson/Android/android-sdk-macosx/platforms/android-17/android.jar' as android.jar
+Warning: java.lang.ref.Finalizer is a phantom class!
+[Call Graph] For information on where the call graph may be incomplete, use the verbose option to the cg phase.
+[Spark] Pointer Assignment Graph in 0.0 seconds.
+[Spark] Type masks in 0.0 seconds.
+[Spark] Pointer Graph simplified in 0.0 seconds.
+[Spark] Propagation in 0.0 seconds.
+[Spark] Solution found in 0.0 seconds.
+Running incremental callback analysis for 1 components...
+Incremental callback analysis done.
+Found 3 layout controls
+Found 3 callback methods for 1 components
+Entry point calculation done.
+Created a SourceSinkManager with 91 sources, 125 sinks, and 3 callback methods.
+Running data flow analysis...
+Running data flow analysis on /Users/justinpeterson/Android/apks/DroidBenchSuite/AndroidSpecific_PrivateDataLeak1.apk with 91 sources and 125 sinks...
+Starting infoflow computation...
+Using '/Users/justinpeterson/Android/android-sdk-macosx/platforms/android-17/android.jar' as android.jar
+Warning: java.lang.ref.Finalizer is a phantom class!
+[Call Graph] For information on where the call graph may be incomplete, use the verbose option to the cg phase.
+[Spark] Pointer Assignment Graph in 0.0 seconds.
+[Spark] Type masks in 0.0 seconds.
+[Spark] Pointer Graph simplified in 0.0 seconds.
+[Spark] Propagation in 0.0 seconds.
+[Spark] Solution found in 0.0 seconds.
+Found a flow to sink virtualinvoke $r7.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>("+49 1234", null, $r5, null, null), from the following sources:
+	- virtualinvoke $r0.<de.ecspride.PrivateDateLeakage: android.view.View findViewById(int)>(2131165184) (in <de.ecspride.PrivateDateLeakage: void onRestart()>)
+		on Path [$r1 = virtualinvoke $r0.<de.ecspride.PrivateDateLeakage: android.view.View findViewById(int)>(2131165184), $r2 = (android.widget.EditText) $r1, $r4 = virtualinvoke $r2.<android.widget.EditText: java.lang.String toString()>(), specialinvoke $r6.<de.ecspride.data.User: void <init>(java.lang.String,java.lang.String)>($r4, $r5), $r0.<de.ecspride.data.User: java.lang.String username> = $r1, return, $r0.<de.ecspride.PrivateDateLeakage: de.ecspride.data.User user> = $r6, return, virtualinvoke $r0.<de.ecspride.PrivateDateLeakage: void sendMessage(android.view.View)>($r2), $r2 = $r0.<de.ecspride.PrivateDateLeakage: de.ecspride.data.User user>, $r5 = virtualinvoke $r2.<de.ecspride.data.User: java.lang.String getUsername()>(), $r1 = $r0.<de.ecspride.data.User: java.lang.String username>, return $r1, $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5), $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>(), virtualinvoke $r7.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>("+49 1234", null, $r5, null, null), virtualinvoke $r7.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>("+49 1234", null, $r5, null, null)]
+	- virtualinvoke $r0.<de.ecspride.PrivateDateLeakage: android.view.View findViewById(int)>(2131165185) (in <de.ecspride.PrivateDateLeakage: void onRestart()>)
+		on Path [$r1 = virtualinvoke $r0.<de.ecspride.PrivateDateLeakage: android.view.View findViewById(int)>(2131165185), $r3 = (android.widget.EditText) $r1, $r5 = virtualinvoke $r3.<android.widget.EditText: java.lang.String toString()>(), specialinvoke $r6.<de.ecspride.data.User: void <init>(java.lang.String,java.lang.String)>($r4, $r5), specialinvoke $r3.<de.ecspride.data.Password: void <init>(java.lang.String)>($r2), $r0.<de.ecspride.data.Password: java.lang.String password> = $r1, return, $r0.<de.ecspride.data.User: de.ecspride.data.Password pwd> = $r3, return, $r0.<de.ecspride.PrivateDateLeakage: de.ecspride.data.User user> = $r6, return, virtualinvoke $r0.<de.ecspride.PrivateDateLeakage: void sendMessage(android.view.View)>($r2), $r5 = specialinvoke $r0.<de.ecspride.PrivateDateLeakage: java.lang.String getPassword()>(), $r1 = $r0.<de.ecspride.PrivateDateLeakage: de.ecspride.data.User user>, $r2 = virtualinvoke $r1.<de.ecspride.data.User: de.ecspride.data.Password getPwd()>(), $r1 = $r0.<de.ecspride.data.User: de.ecspride.data.Password pwd>, return $r1, $r3 = virtualinvoke $r2.<de.ecspride.data.Password: java.lang.String getPassword()>(), $r1 = $r0.<de.ecspride.data.Password: java.lang.String password>, return $r1, return $r3, $r6 = virtualinvoke $r5.<java.lang.String: char[] toCharArray()>(), $c1 = $r6[$i2], $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>($c1), $r3 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>(), $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3), $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>(), virtualinvoke $r7.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>("+49 1234", null, $r5, null, null), virtualinvoke $r7.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>("+49 1234", null, $r5, null, null)]
+Analysis has run for 4.633818288 seconds
+Condensed report: 
+Found a flow to sink virtualinvoke $r7.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>("+49 1234", null, $r5, null, null), from the following sources:
+	- virtualinvoke $r0.<de.ecspride.PrivateDateLeakage: android.view.View findViewById(int)>(2131165184) (in <de.ecspride.PrivateDateLeakage: void onRestart()>)
+	- virtualinvoke $r0.<de.ecspride.PrivateDateLeakage: android.view.View findViewById(int)>(2131165185) (in <de.ecspride.PrivateDateLeakage: void onRestart()>)
