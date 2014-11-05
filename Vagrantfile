@@ -4,7 +4,7 @@ Vagrant::Config.run do |config|
   # please see the online documentation at vagrantup.com.
 
 
-  config.vm.box = "puppetlabs/centos-6.5-64-puppet"
+  config.vm.box = "puppetlabs/centos-6.5-32-puppet"
 
   Vagrant::Config.run do |config|
       config.vm.customize ["modifyvm", :id, "--memory", 2048]
