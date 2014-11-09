@@ -90,7 +90,7 @@ public class WrapperCompiler {
 			
 		//compile
 		
-		Process compileProc = Runtime.getRuntime().exec("javac -classpath ./lib/*:"+targetJar.toPath().toString()+" ./spawn/Wrapper"+index+".java");
+		Process compileProc = Runtime.getRuntime().exec("javac -g -classpath ./lib/*:"+targetJar.toPath().toString()+" ./spawn/Wrapper"+index+".java");
 		try {
 			compileProc.waitFor(); //what could go wrong? Oh, right, infinite hang . . .
 		} catch (InterruptedException e) {
