@@ -1,6 +1,7 @@
 package com.rit.AndroidAnalysisEngine.engine;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
@@ -14,6 +15,15 @@ public class Engine {
 		
 		String jarToTarget  = converter.convertApkToJar(path, null);
 	
+        WrapperCompiler wrComp = new WrapperCompiler();
+        File compiledJar = null;
+        try {
+        	compiledJar = wrComp.doCompile(99, new File(jarToTarget));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+		
 		return null;
 	}
 	

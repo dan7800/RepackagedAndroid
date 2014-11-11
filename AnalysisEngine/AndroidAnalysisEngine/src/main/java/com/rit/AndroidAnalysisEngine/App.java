@@ -4,6 +4,7 @@ import java.io.File;
 
 import com.beust.jcommander.JCommander;
 import com.rit.AndroidAnalysisEngine.engine.Engine;
+import com.rit.AndroidAnalysisEngine.engine.WrapperCompiler;
 
 /**
  * Hello world!
@@ -16,7 +17,7 @@ public class App
     	Parameters params = new Parameters();
     	JCommander jc = new JCommander(params, args);
     	
-        System.out.println( "Hello World!" );
+        System.out.println( "Firing up!" );
         
         File targetApk = new File(params.getApkFileName());
         if(!targetApk.exists()){
