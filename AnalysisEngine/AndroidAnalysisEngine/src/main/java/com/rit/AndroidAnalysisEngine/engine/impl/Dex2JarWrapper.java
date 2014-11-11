@@ -1,8 +1,10 @@
 package com.rit.AndroidAnalysisEngine.engine.impl;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import com.rit.AndroidAnalysisEngine.Config;
 import com.rit.AndroidAnalysisEngine.engine.ApkToJarConverter;
 
 public class Dex2JarWrapper implements ApkToJarConverter{
@@ -11,12 +13,21 @@ public class Dex2JarWrapper implements ApkToJarConverter{
 		// TODO Auto-generated method stub
 		Runtime rt = Runtime.getRuntime();
 	    try {
-			Process pr = rt.exec("../dex2jar/dex2jar.bat "+ pathToApk.toString());
-		} catch (IOException e) {
+	    	String dexer = "sh "+Config.getConfig().getDex2JarPath()+"dex2jar.sh ";
+	    	String dexerCommand = dexer + pathToApk.toString();
+			Process pr = rt.exec(dexerCommand);
+			pr.waitFor();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
-		return pathToApk.toString();
+	    String newjar = pathToApk.toString().replace(".apk", "_dex2jar.jar");
+	    
+	    if(!(new File(newjar).exists())){
+	    	System.out.println("no undexed file created!");
+	    }
+	    	
+		return newjar;
 	}
 	
 }
