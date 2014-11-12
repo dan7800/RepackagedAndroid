@@ -12,9 +12,9 @@ public class Engine {
 	public static File processApk(Path path){
 		
 		ApkToJarConverter converter = new Dex2JarWrapper();
-		
+		System.out.println("Converting!");
 		String jarToTarget  = converter.convertApkToJar(path, null);
-	
+		System.out.println("Compiling!");
         WrapperCompiler wrComp = new WrapperCompiler();
         File compiledJar = null;
         try {
@@ -23,7 +23,17 @@ public class Engine {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
-		
+        System.out.println("Running JPF!");
+        try {
+        	JpfRunner jpfRunner = new JpfRunner();
+            jpfRunner.runAgainstFile(compiledJar);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+        
+        System.out.println("Program complete!");
+        
 		return null;
 	}
 	

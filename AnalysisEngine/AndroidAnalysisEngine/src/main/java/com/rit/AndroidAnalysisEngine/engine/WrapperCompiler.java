@@ -115,7 +115,7 @@ public class WrapperCompiler {
 		//clean up
 		//cleanOutJavaFiles();
         //cleanOutClassFiles();
-        return new File("./spawn/Wrapper"+index+".jar");
+        return new File("./spawn/Wrapper"+index+".jpf");
         /*WARNING: if you got major.minor versions, I feel bad for you son
         			I got 99 problems, but too many JDKs ain't one 
         Real Answer: get your default user JDK and JRE in sync.  No really. 
