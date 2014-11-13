@@ -11,39 +11,53 @@ public class SourceWriter {
 	
 	private Set<Class<? extends Activity>> activityClasses;
 	
+	private String importLines = "";
+	private String functionLines = "";
+	
 	public SourceWriter( Set<Class<? extends Activity>> activityClasses ){
 		this.activityClasses = activityClasses;
-	}
-	
-	public String getImportStrings(){
-		String importLines= "";
 		
 		Iterator<Class<? extends Activity>> rator= activityClasses.iterator();
-		importLines += "import java.lang.RuntimeException;\n";
-        while (rator.hasNext()){
-        	importLines +="import "+rator.next().getName()+";\n";
-        }
-		return importLines;
-	}
-	
-	public String getFunctionCalls(){
-		String functionLines = "";
-		Iterator<Class<? extends Activity>> rator= activityClasses.iterator();
-		//functionLines += "\t\tBundle bundle = new Bundle();\n";
 		Class<? extends Activity> curAct;
         while (rator.hasNext()){
         	curAct = rator.next();
-        	if (Modifier.isAbstract(curAct.getModifiers())){
-        		continue;
-        	}
-        	functionLines += "\t\ttry{\n"; 
-        	functionLines += "\t\t\t" + curAct.getSimpleName() + " "+curAct.getSimpleName()+"Var = "+
-        			"new "+curAct.getSimpleName()+"();\n";
-        	functionLines += "\t\t\t" + curAct.getSimpleName()+"Var"+".onCreate(null);\n";
-        	functionLines += "\t\t}catch(RuntimeException ex){\n\t\t\tSystem.out.println(\"Hit Runtime!\");\n\t\t}\n"; 
+        	processActivity(curAct);
         }
-		
+	}
+	
+	private void processActivity(Class<? extends Activity> clazz){
+		if(Modifier.isAbstract(clazz.getModifiers())){
+			return;
+		}
+		generateImportStrings(clazz);
+		generateFunctionCalls(clazz);
+	}
+	
+	
+	public void generateImportStrings(Class<? extends Activity> clazz){
+		importLines +="import "+clazz.getName()+";\n";
+	}
+	
+	public void generateFunctionCalls(Class<? extends Activity> clazz){
+		functionLines += "\t\ttry{\n"; 
+		functionLines += "\t\t\t" + clazz.getSimpleName() + " "+clazz.getSimpleName()+"Var = "+
+        			"new "+clazz.getSimpleName()+"();\n";
+        functionLines += "\t\t\t" + clazz.getSimpleName()+"Var"+".onCreate(null);\n";
+        functionLines += "\t\t}catch(RuntimeException ex){\n\t\t\tSystem.out.println(\"Hit Runtime Exception!\");\n\t\t}\n"; 
+	}
+
+	public Set<Class<? extends Activity>> getActivityClasses() {
+		return activityClasses;
+	}
+
+	public String getImportStrings() {
+		return importLines;
+	}
+
+	public String getFunctionCalls() {
 		return functionLines;
 	}
+	
+	
 	
 }

@@ -38,7 +38,8 @@ public class WrapperCompiler {
 	
 	public void spawnFiles(int index, File targetJar) throws IOException{
 		ActivityFinder activityFinder = new ActivityFinder();
-		spawnWrapperFile(index, activityFinder.getClassInfo(targetJar, new HashSet<Class<? extends Activity>>()));
+		SourceWriter writer = new SourceWriter(activityFinder.getClassInfo(targetJar, new HashSet<Class<? extends Activity>>()));
+		spawnWrapperFile(index, writer );
 		spawnManifestFile(index, targetJar);
 	}
 	
@@ -69,16 +70,14 @@ public class WrapperCompiler {
 		outToFile.close();
 	}
 	
-	public void spawnWrapperFile(int index, Set<Class<? extends Activity>> activityClasses) throws IOException{
+	public void spawnWrapperFile(int index, SourceWriter manipulator) throws IOException{
 		File sourceFile = new File("./spawn/Wrapper.template");
-		SourceWriter manipulator = new SourceWriter(activityClasses);
 		
 		String rawSource = readFile(sourceFile, Charset.defaultCharset());
 		String editedSource = rawSource.replace(indexToken, new Integer(index).toString());
 		editedSource = editedSource.replace(importsToken, manipulator.getImportStrings());
 		editedSource = editedSource.replace(functionsToken, manipulator.getFunctionCalls());
 		
-		//TODO crazy stuff here
 		PrintWriter outToFile = new PrintWriter("./spawn/Wrapper"+index+".java");
 		outToFile.println(editedSource);
 		outToFile.close();
