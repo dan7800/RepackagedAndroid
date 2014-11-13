@@ -22,6 +22,8 @@ public class WrapperCompiler {
 	private final String indexToken = "{{INDEX}}";
 	private final String importsToken = "{{CLASS_IMPORTS}}";
 	private final String functionsToken = "{{FUNCTION_CALLS}}";
+	private final String classpathToken = "{{CLASSPATH}}";
+	private final String functionsToTestToken = "{{FUNCTIONS_TO_TEST}}";
 	private String classPathDelimiter;
 	
 	public WrapperCompiler(){
@@ -41,6 +43,11 @@ public class WrapperCompiler {
 		SourceWriter writer = new SourceWriter(activityFinder.getClassInfo(targetJar, new HashSet<Class<? extends Activity>>()));
 		spawnWrapperFile(index, writer );
 		spawnManifestFile(index, targetJar);
+		spawnJpfFile(index, targetJar, writer);
+	}
+	
+	private String getClassPathStringMultiLine(Path targetJarPath) throws IOException{
+		return getClassPathString(targetJarPath).replace(":", "\n  ");
 	}
 	
 	private String getClassPathString(Path targetJarPath) throws IOException{
@@ -52,7 +59,7 @@ public class WrapperCompiler {
             }
         });
         for (File file : files) {
-        	classpath+= "  "+new File("./spawn/").toPath().relativize(file.toPath()).toString()+"\n";
+        	classpath+= ":"+new File("./spawn/").toPath().relativize(file.toPath()).toString();
         }
         String relativePath = new File(".").toPath().relativize(targetJarPath).toString();
 		return relativePath + classpath;
@@ -63,7 +70,7 @@ public class WrapperCompiler {
 		
 		String rawSource = readFile(sourceFile, Charset.defaultCharset());
 		String editedSource = rawSource.replace(indexToken, new Integer(index).toString());
-		editedSource = editedSource.replace("{{CLASSPATH}}", getClassPathString(targetJar.toPath()));
+		editedSource = editedSource.replace("{{CLASSPATH}}", getClassPathStringMultiLine(targetJar.toPath()));
 
 		PrintWriter outToFile = new PrintWriter("./spawn/manifest"+index+".mf");
 		outToFile.println(editedSource);
@@ -76,9 +83,23 @@ public class WrapperCompiler {
 		String rawSource = readFile(sourceFile, Charset.defaultCharset());
 		String editedSource = rawSource.replace(indexToken, new Integer(index).toString());
 		editedSource = editedSource.replace(importsToken, manipulator.getImportStrings());
-		editedSource = editedSource.replace(functionsToken, manipulator.getFunctionCalls());
+		editedSource = editedSource.replace(functionsToken, manipulator.getFunctionCallStrings());
 		
 		PrintWriter outToFile = new PrintWriter("./spawn/Wrapper"+index+".java");
+		outToFile.println(editedSource);
+		outToFile.close();
+		
+	}
+	
+	public void spawnJpfFile(int index, File targetJar, SourceWriter manipulator) throws IOException{
+		File sourceFile = new File("./spawn/Wrapper.jpf.template");
+		
+		String rawSource = readFile(sourceFile, Charset.defaultCharset());
+		String editedSource = rawSource.replace(indexToken, new Integer(index).toString());
+		editedSource = editedSource.replace(classpathToken, getClassPathString(targetJar.toPath()));
+		editedSource = editedSource.replace(functionsToTestToken, manipulator.getFunctionToTestStrings());
+		
+		PrintWriter outToFile = new PrintWriter("./spawn/Wrapper"+index+".jpf");
 		outToFile.println(editedSource);
 		outToFile.close();
 		

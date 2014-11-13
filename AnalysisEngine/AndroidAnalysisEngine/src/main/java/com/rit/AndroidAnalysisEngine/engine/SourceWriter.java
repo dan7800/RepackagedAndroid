@@ -13,6 +13,7 @@ public class SourceWriter {
 	
 	private String importLines = "";
 	private String functionLines = "";
+	private String functionToTestLines = "";
 	
 	public SourceWriter( Set<Class<? extends Activity>> activityClasses ){
 		this.activityClasses = activityClasses;
@@ -31,19 +32,24 @@ public class SourceWriter {
 		}
 		generateImportStrings(clazz);
 		generateFunctionCalls(clazz);
+		generateFuntionToTestLines(clazz);
 	}
 	
 	
-	public void generateImportStrings(Class<? extends Activity> clazz){
+	private void generateImportStrings(Class<? extends Activity> clazz){
 		importLines +="import "+clazz.getName()+";\n";
 	}
 	
-	public void generateFunctionCalls(Class<? extends Activity> clazz){
+	private void generateFunctionCalls(Class<? extends Activity> clazz){
 		functionLines += "\t\ttry{\n"; 
 		functionLines += "\t\t\t" + clazz.getSimpleName() + " "+clazz.getSimpleName()+"Var = "+
         			"new "+clazz.getSimpleName()+"();\n";
         functionLines += "\t\t\t" + clazz.getSimpleName()+"Var"+".onCreate(null);\n";
         functionLines += "\t\t}catch(RuntimeException ex){\n\t\t\tSystem.out.println(\"Hit Runtime Exception!\");\n\t\t}\n"; 
+	}
+	
+	private void generateFuntionToTestLines(Class<? extends Activity> clazz){
+		functionToTestLines+=clazz.getName()+".onCreate(sym),";
 	}
 
 	public Set<Class<? extends Activity>> getActivityClasses() {
@@ -54,8 +60,12 @@ public class SourceWriter {
 		return importLines;
 	}
 
-	public String getFunctionCalls() {
+	public String getFunctionCallStrings() {
 		return functionLines;
+	}
+
+	public String getFunctionToTestStrings() {
+		return functionToTestLines.substring(0, functionToTestLines.length()-2);
 	}
 	
 	
