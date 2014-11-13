@@ -1,6 +1,36 @@
-Week 8
+
+Week 10
+===
+* Sent email out to the site owner for contagio mini malware dump in hopes of getting more documented segments of malware for the tool analysis section of research. 
+* Finished developing a tool to create apk files from android classpaths to work with the apk-to java tool.
+* Inserted malware segments into 5 popular android applications and repackaged the files into APKs using the tool.
+* Finished off the tool analysis document, still need to write the overall summary for each tool that was tested. 
+
+## TODO for week 11:
+* Create table of false negatives, false positives, true negatives, true positives for each tool and describe results and overall time taken to test samples
+* Research/presentation abstract
+* Detailed oracle writeup
+** Why were specific tools/apk sets/ strategies used above others
+* Additional documentation
+** Make sure each tool I have written is checked in and organized ont he repo, should not take that long. 
+
+
+Weeks 8 and 9 
 ===
 
+No Meeting was held this week. Status update as far as goals that should be accomplished before Monday of week 10
+
+* Preforming some research on APKTool
+   ** Reverse engineering android applications to dalvik bytecode. This may prove useful in our research, but seems slightly out of scope for now. 
+* Additional tool functionality
+   ** Wrote the parser for FlowDroid application output
+   ** Built and ran the anadroid static APK analysis tool. I am continuing to write parser for tool output.
+   ** Used the Dexter APK analysis tool to infer output from sample set of APK files (http://dexter.dexlabs.org/)
+* Began writing a summary of test results with two apk sample sets and three static analysis tools. 
+
+To complete during week 10: 
+* finish testing both APK sample sets with each static analysis tool
+* Insert known malware segments into 10 popular APKS outlined on the tool analysis document and properly repackage them before feeding into static analysis tools.  
 
 Week 7
 ===

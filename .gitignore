@@ -5,6 +5,7 @@
 *.vagrant/
 
 ##Tool outputs##
+tools/flowdroid-processor/__MACOSX/*
 tools/apk_to_java/dex2jar/*
 tools/apk_to_java/apks/*
 tools/apk_to_java/outputs/classpaths/*
