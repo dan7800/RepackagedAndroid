@@ -9,6 +9,10 @@
   4. Run "vagrant ssh" to enter the virtual machine
 2. All included projects will be in "~/Workspace/" in the VM
 
+## Requirements
+
+1. Linux or possibly OSX only.  Windows is not supported at this time.  Hence, the management has provided a lovely vagrant VM
+
 ## Analysis Engine Project Setup:
 
 1. MAKE SURE YOU HAVE A JDK INSTALLED AND ON YOUR PATH
@@ -19,3 +23,4 @@
     1. run jpf_clone.sh - this pulls down the repositories
 	2. run jpf_build.sh - this builds the required jars
   2. In the host OS, import "AnalysisEngine/AndroidAnalysisEngine/" as a maven project in the IDE of your choice
+

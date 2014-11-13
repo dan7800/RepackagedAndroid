@@ -65,7 +65,7 @@ public class SourceWriter {
 	}
 
 	public String getFunctionToTestStrings() {
-		return functionToTestLines.substring(0, functionToTestLines.length()-2);
+		return functionToTestLines.substring(0, functionToTestLines.length()-1);
 	}
 	
 	
