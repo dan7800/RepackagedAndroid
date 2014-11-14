@@ -16,9 +16,12 @@ public class AndroidLibraryActivityFilter {
 	public Set<Class<? extends Activity>> filterOutClassesFromAndroidLibraries(Set<Class<? extends Activity>> unfilteredList){
 		Set<Class<? extends Activity>> filteredList = new HashSet<Class<? extends Activity>>();
 		
-		File blocklistFile = new File("src/main/resources/AndroidActivityClassesBlocklist.txt");
+		File blocklistFile = new File("configs/AndroidActivityClassesBlocklist.txt");
 		List<String> blocklist = new ArrayList<String>();
 		try{
+			if(!blocklistFile.exists()){
+				throw new Exception("Blocklist?  What Blocklist?");
+			}
 			blocklist = Files.readLines(blocklistFile, Charset.defaultCharset());
 		}catch(Exception ex){
 			System.out.println("help, help, I'm being suppressed!");

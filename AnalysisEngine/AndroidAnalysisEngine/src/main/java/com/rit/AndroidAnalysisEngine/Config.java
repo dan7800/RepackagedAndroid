@@ -17,7 +17,7 @@ public class Config {
 	
 		try {
 			 
-			input = new FileInputStream("config.properties");
+			input = new FileInputStream("./configs/config.properties");
 	 
 			// load a properties file
 			props.load(input);

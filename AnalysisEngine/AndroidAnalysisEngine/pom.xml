@@ -4,7 +4,7 @@
 
   <groupId>com.rit</groupId>
   <artifactId>AndroidAnalysisEngine</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>AndroidAnalysisEngine</name>
@@ -16,6 +16,24 @@
   
   <build>
         <plugins>
+		    <plugin>
+		      <!-- Build an executable JAR -->
+		      <groupId>org.apache.maven.plugins</groupId>
+		      <artifactId>maven-jar-plugin</artifactId>
+		      <version>2.4</version>
+		      <configuration>
+		        <archive>
+		          <manifestEntries>
+		          	<Class-Path>lib/android-4.1.1.4.jar</Class-Path>
+		          </manifestEntries>
+		          <manifest>
+		            <addClasspath>true</addClasspath>
+		            <classpathPrefix>lib/</classpathPrefix>
+		            <mainClass>com.rit.AndroidAnalysisEngine.App</mainClass>
+		          </manifest>
+		        </archive>
+		      </configuration>
+		    </plugin>
           <plugin>
             <artifactId>maven-dependency-plugin</artifactId>
             <executions>
@@ -30,16 +48,64 @@
               </execution>
             </executions>
           </plugin>
+          <plugin>
+	        <artifactId>maven-resources-plugin</artifactId>
+	        <version>2.7</version>
+	        <executions>
+	          <execution>
+	            <id>copy-spawn</id>
+	            <phase>validate</phase>
+	            <goals>
+	              <goal>copy-resources</goal>
+	            </goals>
+	            <configuration>
+	              <outputDirectory>${basedir}/target/spawn</outputDirectory>
+	              <resources>          
+	                <resource>
+	                  <directory>${basedir}/target/spawn</directory>
+	                  <filtering>true</filtering>
+	                </resource>
+	              </resources>              
+	            </configuration>            
+	          </execution>
+	          <execution>
+	            <id>copy-config</id>
+	            <phase>validate</phase>
+	            <goals>
+	              <goal>copy-resources</goal>
+	            </goals>
+	            <configuration>
+	              <outputDirectory>${basedir}/target/configs</outputDirectory>
+	              <resources>          
+	                <resource>
+	                  <directory>${basedir}/configs</directory>
+	                  <filtering>true</filtering>
+	                </resource>
+	              </resources>              
+	            </configuration>            
+	          </execution>
+	        </executions>
+	      </plugin>
         </plugins>
    </build>
 
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+          <groupId>com.google.android</groupId>
+          <artifactId>android</artifactId>
+          <version>4.1.1.4</version>
+          <scope>provided</scope>
+      </dependency>
+            <dependency>
+          <groupId>com.google.android</groupId>
+          <artifactId>support-v4</artifactId>
+          <version>r6</version>
+      </dependency>
+      <dependency>
+          <groupId>org.reflections</groupId>
+          <artifactId>reflections</artifactId>
+          <version>0.9.9</version>
+      </dependency>
     <dependency>
     	<groupId>com.beust</groupId>
     	<artifactId>jcommander</artifactId>
@@ -55,22 +121,5 @@
 		<artifactId>commons-lang</artifactId>
 		<version>2.3</version>
 	</dependency>
-	
-      <dependency>
-          <groupId>com.google.android</groupId>
-          <artifactId>android</artifactId>
-          <version>4.1.1.4</version>
-          <scope>provided</scope>
-      </dependency>
-      <dependency>
-          <groupId>org.reflections</groupId>
-          <artifactId>reflections</artifactId>
-          <version>0.9.9</version>
-      </dependency>
-      <dependency>
-          <groupId>com.google.android</groupId>
-          <artifactId>support-v4</artifactId>
-          <version>r6</version>
-      </dependency>
   </dependencies>
 </project>

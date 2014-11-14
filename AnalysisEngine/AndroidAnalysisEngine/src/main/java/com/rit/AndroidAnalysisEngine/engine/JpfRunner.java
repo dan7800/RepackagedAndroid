@@ -13,19 +13,18 @@ public class JpfRunner {
 	public String runAgainstFile(File file) throws IOException{
 		
 		String jpfDir = Config.getConfig().getJpfPath();
-		String command = "sh "+jpfDir+"bin/jpf spawn/"+file.getName();
-		//String command = "echo hello > /Users/McAfee/test.out.txt";
-		Process runProc = Runtime.getRuntime().exec(command);
+		String command =  "-log";// -log ./spawn/"+file.getName();
+		String[] CMD_ARRAY = {"/bin/sh", jpfDir+"bin/jpf", "-log", "./spawn/"+file.getName()};
+		(new File("./results/")).mkdirs();
+		String resultsFile = "./results/"+file.getName()+".jpfout.txt";
+		final ProcessBuilder builder = new ProcessBuilder(CMD_ARRAY).redirectErrorStream(true).redirectOutput(new File(resultsFile)).directory(new File(".").getAbsoluteFile());
+		Process runProc = builder.start();
+
 		try {
-			runProc.waitFor(); //what could go wrong? Oh, right, infinite hang . . .
+			runProc.waitFor();	//what could go wrong? Oh, right, infinite hang . . .
 		} catch (InterruptedException e) {
 			System.out.println(e.getMessage());
 		}
-		(new File("./results/")).mkdirs();
-		String resultsFile = "./results/"+file.getName()+".jpfout.txt";
-		PrintWriter outToFile = new PrintWriter(resultsFile);
-		outToFile.print(CharStreams.toString(new InputStreamReader(runProc.getInputStream(), "UTF-8")));
-		outToFile.close();
 		return resultsFile; 
 	}
 	

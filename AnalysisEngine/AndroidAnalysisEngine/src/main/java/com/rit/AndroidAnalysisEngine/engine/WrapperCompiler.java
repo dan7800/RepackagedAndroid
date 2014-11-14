@@ -96,7 +96,7 @@ public class WrapperCompiler {
 		
 		String rawSource = readFile(sourceFile, Charset.defaultCharset());
 		String editedSource = rawSource.replace(indexToken, new Integer(index).toString());
-		editedSource = editedSource.replace(classpathToken, getClassPathString(targetJar.toPath()));
+		editedSource = editedSource.replace(classpathToken, "./spawn/Wrapper"+index+".jar:"+getClassPathString(targetJar.toPath())).replace("../", "./");
 		editedSource = editedSource.replace(functionsToTestToken, manipulator.getFunctionToTestStrings());
 		
 		PrintWriter outToFile = new PrintWriter("./spawn/Wrapper"+index+".jpf");
