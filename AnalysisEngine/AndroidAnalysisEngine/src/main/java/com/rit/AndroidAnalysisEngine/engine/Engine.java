@@ -9,7 +9,7 @@ import com.rit.AndroidAnalysisEngine.engine.impl.Dex2JarWrapper;
 
 public class Engine {
 	
-	public static File processApk(Path path){
+	public static void processApk(Path path){
 		
 		ApkToJarConverter converter = new Dex2JarWrapper();
 		System.out.println("Converting!");
@@ -24,17 +24,21 @@ public class Engine {
 			System.out.println(e.getMessage());
 		}
         System.out.println("Running JPF!");
+        File output =null;
         try {
         	JpfRunner jpfRunner = new JpfRunner();
-            jpfRunner.runAgainstFile(compiledJar);
+            output = jpfRunner.runAgainstFile(path.getFileName().toString(), compiledJar);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
         
         System.out.println("Program complete!");
-        
-		return null;
+        if ((null==output) || (!output.exists())){
+        	System.out.println("There was a problem generating the output file");
+        }else{
+        	System.out.println("Output file located at: "+output.getAbsolutePath().toString());
+        }
 	}
 	
 }

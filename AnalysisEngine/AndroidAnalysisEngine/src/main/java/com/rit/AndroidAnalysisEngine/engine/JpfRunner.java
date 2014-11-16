@@ -10,13 +10,13 @@ import com.rit.AndroidAnalysisEngine.Config;
 
 public class JpfRunner {
 
-	public String runAgainstFile(File file) throws IOException{
+	public File runAgainstFile(String originalFileName, File file) throws IOException{
 		
 		String jpfDir = Config.getConfig().getJpfPath();
 		String command =  "-log";// -log ./spawn/"+file.getName();
 		String[] CMD_ARRAY = {"/bin/sh", jpfDir+"bin/jpf", "-log", "./spawn/"+file.getName()};
 		(new File("./results/")).mkdirs();
-		String resultsFile = "./results/"+file.getName()+".jpfout.txt";
+		String resultsFile = "./results/"+originalFileName+".jpfout.txt";
 		final ProcessBuilder builder = new ProcessBuilder(CMD_ARRAY).redirectErrorStream(true).redirectOutput(new File(resultsFile)).directory(new File(".").getAbsoluteFile());
 		Process runProc = builder.start();
 
@@ -25,7 +25,7 @@ public class JpfRunner {
 		} catch (InterruptedException e) {
 			System.out.println(e.getMessage());
 		}
-		return resultsFile; 
+		return new File(resultsFile); 
 	}
 	
 	
