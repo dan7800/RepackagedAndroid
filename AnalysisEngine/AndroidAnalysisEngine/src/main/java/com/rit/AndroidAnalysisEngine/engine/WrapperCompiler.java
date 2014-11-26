@@ -42,6 +42,7 @@ public class WrapperCompiler {
 		ActivityFinder activityFinder = new ActivityFinder();
 		SourceWriter writer = new SourceWriter(activityFinder.getClassInfo(targetJar, new HashSet<Class<? extends Activity>>()));
 		spawnWrapperFile(index, writer );
+		spawnWrapperRunnerFile(index, writer );
 		spawnManifestFile(index, targetJar);
 		spawnJpfFile(index, targetJar, writer);
 	}
@@ -91,6 +92,18 @@ public class WrapperCompiler {
 		
 	}
 	
+	public void spawnWrapperRunnerFile(int index, SourceWriter manipulator) throws IOException{
+		File sourceFile = new File("./spawn/WrapperRunner.template");
+		
+		String rawSource = readFile(sourceFile, Charset.defaultCharset());
+		String editedSource = rawSource.replace(indexToken, new Integer(index).toString());
+		
+		PrintWriter outToFile = new PrintWriter("./spawn/WrapperRunner"+index+".java");
+		outToFile.println(editedSource);
+		outToFile.close();
+		
+	}
+	
 	public void spawnJpfFile(int index, File targetJar, SourceWriter manipulator) throws IOException{
 		File sourceFile = new File("./spawn/Wrapper.jpf.template");
 		
@@ -109,8 +122,8 @@ public class WrapperCompiler {
 		spawnFiles(index, targetJar);
 			
 		//compile
-		
-		Process compileProc = Runtime.getRuntime().exec("javac -g -classpath ./lib/*:"+targetJar.toPath().toString()+" ./spawn/Wrapper"+index+".java");
+		String compileCommond = "javac -g -classpath ./lib/*:"+targetJar.toPath().toString()+" ./spawn/Wrapper"+index+".java ./spawn/WrapperRunner"+index+".java";
+		Process compileProc = Runtime.getRuntime().exec(compileCommond);
 		try {
 			compileProc.waitFor(); //what could go wrong? Oh, right, infinite hang . . .
 		} catch (InterruptedException e) {
@@ -120,11 +133,13 @@ public class WrapperCompiler {
 		
 		File classFile = new File("./spawn/Wrapper"+index+".class");
 		if(!classFile.exists()){
+			System.out.println("Wrapper compile failed");
 			return null;
 		}
 		
 		//make the damn jar
-		Process jarProc =  Runtime.getRuntime().exec("jar cmf ./spawn/manifest"+index+".mf ./spawn/Wrapper"+index+".jar ./spawn/Wrapper"+index+".class");
+		String jarCommand = "jar cmf ./spawn/manifest"+index+".mf ./spawn/Wrapper"+index+".jar ./spawn/Wrapper"+index+".class ./spawn/WrapperRunner"+index+".class"; 
+		Process jarProc =  Runtime.getRuntime().exec(jarCommand);
         
 		try {
 			jarProc.waitFor(); //what could go wrong? Oh, right, infinite hang . . .

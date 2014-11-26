@@ -1,10 +1,16 @@
 package spawn;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
 {{CLASS_IMPORTS}}
 
+@RunWith(RobolectricTestRunner.class)
 public class Wrapper{{INDEX}} {
 
-	public static void main(String[] args){
+	@Test
+	public void theGreatTest(){
 		System.out.println("Starting function calls");
 {{FUNCTION_CALLS}}
         System.out.println("Finished with function calls");

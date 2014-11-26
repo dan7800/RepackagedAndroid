@@ -33,5 +33,8 @@ Vagrant::Config.run do |config|
     puppet.manifest_file = "site.pp"
   end
 
+  config.vm.provision "shell", inline: "sudo wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo"
+  config.vm.provision "shell", inline: "sudo yum install -y apache-maven"
+
 end
 
