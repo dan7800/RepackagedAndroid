@@ -3,6 +3,14 @@
 *.apk
 dex2jar/*
 .project
+spawn/*.jpf
+spawn/*.jar
+spawn/*.java
+spawn/*.mf
+/results/*
+*.out
+*.apk
+*.sh
 
 /target/
 
@@ -34,7 +42,7 @@ local.properties
 # PDT-specific
 .buildpath
 
-# sbteclipse plugin 
+# sbteclipse plugin
 .target
 
 # TeXlipse plugin

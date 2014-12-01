@@ -1,6 +1,10 @@
 # Created by https://www.gitignore.io
 
 jpf/*
+lib/*
+*.out
+test.jpf
+TestRobolectric/*
 
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
@@ -90,7 +94,7 @@ local.properties
 # PDT-specific
 .buildpath
 
-# sbteclipse plugin 
+# sbteclipse plugin
 .target
 
 # TeXlipse plugin
