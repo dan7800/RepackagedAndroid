@@ -26,7 +26,7 @@ public class WrapperCompilerUnitTest {
 	}
 	
 	@Test //only checks existence of jar
-	//@Ignore("Requires targeted jars, special manifest")
+	@Ignore("Requires targeted jars, special manifest")
 	public void basicCompile() throws Exception{
 		File targetJar = new File("src/test/resources/robodemo-sample-1.0.1_alreadyundexed.jar");
 		wrapperCompiler = new WrapperCompiler();
