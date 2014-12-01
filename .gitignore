@@ -11,3 +11,4 @@ tools/apk_to_java/apks/*
 tools/apk_to_java/outputs/classpaths/*
 tools/apk_to_java/outputs/jars/*
 tools/apk_to_java/jars/*
+tools//flowdroid-processor/flowdroid/*
